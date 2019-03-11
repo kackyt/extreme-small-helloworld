@@ -38,7 +38,7 @@ _start:
 	loop 1b
 	mov $#{file_size}, %edx
 	xor %rax, %rax
-	inc %rax
+	inc %eax
 	mov %rax, %rdi
 	syscall
 	xor %rax, %rax
