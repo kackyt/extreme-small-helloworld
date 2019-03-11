@@ -31,17 +31,17 @@ puts <<"EOS"
 
 _start:
 	mov $0x#{key.to_s(16)}, %rax
-	mov $2f, %rsi
-	mov $#{encode_count}, %rcx
+	mov $2f, %esi
+	mov $#{encode_count}, %cx
 1:
 	xor %rax, -8(%rsi, %rcx, 8)
 	loop 1b
-	mov $#{file_size}, %rdx
+	mov $#{file_size}, %edx
 	xor %rax, %rax
 	inc %rax
 	mov %rax, %rdi
 	syscall
-	mov $60, %rax
+	mov $60, %al
 	xor %rdi, %rdi
 	syscall
 2:
