@@ -41,6 +41,7 @@ _start:
 	inc %rax
 	mov %rax, %rdi
 	syscall
+	xor %rax, %rax
 	mov $60, %al
 	xor %rdi, %rdi
 	syscall
