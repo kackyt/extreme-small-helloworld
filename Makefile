@@ -15,4 +15,4 @@ clean:
 	clang -m64 -c $^ -o $@
 
 extreme.S: template.rb source.txt
-	ruby template.rb > $@
+	ruby template.rb $(TEMP_ARGS) > $@
