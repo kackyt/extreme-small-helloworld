@@ -34,6 +34,8 @@ open(ARGV[0]) do |f|
   # reduce 4 byte
   headers[8] -= 4
   headers[11] -= 4
+  # remove section header
+  headers[9] = 0
 
   data_elf_header = headers.pack('I4SSIQQQISSSS')
   f.seek(64)
