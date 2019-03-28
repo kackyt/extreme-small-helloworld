@@ -4,7 +4,7 @@ $(OUTPUT): $(OUTPUT)-with-header
 	ruby remove-section-header.rb $^ $@
 
 $(OUTPUT)-with-header:extreme.o
-	ld -s -x -N -o $@ $^
+	ld -Ttext 0x400074 -s -x -N -o $@ $^
 
 .PHONY: clean
 

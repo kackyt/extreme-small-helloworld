@@ -31,10 +31,22 @@ open(ARGV[0]) do |f|
     end
   end
 
-  f.seek(0)
+  # reduce 4 byte
+  headers[8] -= 4
+  headers[11] -= 4
+
+  data_elf_header = headers.pack('I4SSIQQQISSSS')
+  f.seek(64)
+  data_program_header = f.read(56)
+  program_header = data_program_header.unpack('IIQQQQQQ')
+  program_header[2] -= 4
+  data_program_header = program_header.pack('IIQQQQQQ')
+  data_without_header = f.read(o_size - 64 - 56)
 
   open(ARGV[1], 'w') do |out|
-    out.write(f.read(o_size))
+    out.write(data_elf_header)
+    out.write(data_program_header)
+    out.write(data_without_header)
   end
   FileUtils.chmod(0755, ARGV[1])
 end
