@@ -31,17 +31,18 @@ open(ARGV[0]) do |f|
     end
   end
 
-  # reduce 4 byte
-  headers[8] -= 4
-  headers[11] -= 4
+  # reduce 8 byte
+  headers[8] -= 8
+  headers[11] -= 8
   # remove section header
   headers[9] = 0
 
-  data_elf_header = headers.pack('I4SSIQQQISSSS')
+  data_elf_header = headers.pack('I4SSIQQQISS')
   f.seek(64)
   data_program_header = f.read(56)
   program_header = data_program_header.unpack('IIQQQQQQ')
-  program_header[2] -= 4
+  program_header[2] -= 8
+  
   data_program_header = program_header.pack('IIQQQQQQ')
   data_without_header = f.read(o_size - 64 - 56)
 
